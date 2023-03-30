@@ -1,61 +1,61 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { Meal } from '@interfaces/meals.interface';
-import { MealService } from '@services/meals.service';
+import { Order } from '@interfaces/orders.interface';
+import { OrderService } from '@services/orders.service';
 
-export class MealController {
-  public meal = Container.get(MealService);
+export class OrderController {
+  public order = Container.get(OrderService);
 
-  public getMeals = async (req: Request, res: Response, next: NextFunction) => {
+  public getOrders = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllMealsData: Meal[] = await this.meal.findAllMeal();
+      const findAllOrdersData: Order[] = await this.order.findAllOrders();
 
-      res.status(200).json({ data: findAllMealsData, message: 'findAll' });
+      res.status(200).json({ data: findAllOrdersData, message: 'findAll' });
     } catch (error) {
       next(error);
     }
   };
 
-  public getMealById = async (req: Request, res: Response, next: NextFunction) => {
+  public getOrderById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const mealId: string = req.params.id;
-      const findOneMealData: Meal = await this.meal.findMealById(mealId);
+      const orderId: string = req.params.id;
+      const findOneOrderData: Order = await this.order.findOrderById(orderId);
 
-      res.status(200).json({ data: findOneMealData, message: 'findOne' });
+      res.status(200).json({ data: findOneOrderData, message: 'findOne' });
     } catch (error) {
       next(error);
     }
   };
 
-  public createMeal = async (req: Request, res: Response, next: NextFunction) => {
+  public createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const mealData: Meal = req.body;
-      const createMealData: Meal = await this.meal.createMeal(mealData);
+      const orderData: Order = req.body;
+      const createOrderData: Order = await this.order.createOrder(orderData);
 
-      res.status(201).json({ data: createMealData, message: 'created' });
+      res.status(201).json({ data: createOrderData, message: 'created' });
     } catch (error) {
       next(error);
     }
   };
 
-  public updateMeal = async (req: Request, res: Response, next: NextFunction) => {
+  public updateOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const mealId: string = req.params.id;
-      const mealData: Meal = req.body;
-      const updateMealData: Meal = await this.meal.updateMeal(mealId, mealData);
+      const orderId: string = req.params.id;
+      const orderData: Order = req.body;
+      const updateOrderData: Order = await this.order.updateOrder(orderId, orderData);
 
-      res.status(200).json({ data: updateMealData, message: 'updated' });
+      res.status(200).json({ data: updateOrderData, message: 'updated' });
     } catch (error) {
       next(error);
     }
   };
 
-  public deleteMeal = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const mealId: string = req.params.id;
-      const deleteMealData: Meal = await this.meal.deleteMeal(mealId);
+      const orderId: string = req.params.id;
+      const deleteOrderData: Order = await this.order.deleteOrder(orderId);
 
-      res.status(200).json({ data: deleteMealData, message: 'deleted' });
+      res.status(200).json({ data: deleteOrderData, message: 'deleted' });
     } catch (error) {
       next(error);
     }

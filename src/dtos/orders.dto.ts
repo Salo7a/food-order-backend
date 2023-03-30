@@ -1,15 +1,26 @@
-import {IsString, IsNotEmpty, IsNumber } from "class-validator";
+import { IsString, IsNotEmpty, IsNumber, IsEmail, IsArray } from 'class-validator';
 
-export class CreateMealDto {
+export class CreateOrderDto {
   @IsString()
   @IsNotEmpty()
   public name: string;
 
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+
   @IsString()
   @IsNotEmpty()
-  public description: string;
+  public address: string;
+
+  @IsNotEmpty()
+  public postal: number;
 
   @IsNumber()
   @IsNotEmpty()
-  public price: number;
+  public totalAmount: number;
+
+  @IsArray()
+  @IsNotEmpty()
+  public items: [];
 }

@@ -1,23 +1,23 @@
 import { Router } from 'express';
-import { MealController } from '@controllers/meals.controller';
-import { CreateMealDto } from '@dtos/meals.dto';
+import { OrderController } from '@controllers/orders.controller';
+import { CreateOrderDto } from '@dtos/orders.dto';
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 
-export class MealsRoute implements Routes {
-  public path = '/meals';
+export class OrdersRoute implements Routes {
+  public path = '/orders';
   public router = Router();
-  public meal = new MealController();
+  public order = new OrderController();
 
   constructor() {
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.meal.getMeals);
-    this.router.get(`${this.path}/:id`, this.meal.getMealById);
-    this.router.post(`${this.path}`, ValidationMiddleware(CreateMealDto), this.meal.createMeal);
-    this.router.put(`${this.path}/:id`, ValidationMiddleware(CreateMealDto, true), this.meal.updateMeal);
-    this.router.delete(`${this.path}/:id`, this.meal.deleteMeal);
+    this.router.get(`${this.path}`, this.order.getOrders);
+    this.router.get(`${this.path}/:id`, this.order.getOrderById);
+    this.router.post(`${this.path}`, ValidationMiddleware(CreateOrderDto), this.order.createOrder);
+    this.router.put(`${this.path}/:id`, ValidationMiddleware(CreateOrderDto, true), this.order.updateOrder);
+    this.router.delete(`${this.path}/:id`, this.order.deleteOrder);
   }
 }

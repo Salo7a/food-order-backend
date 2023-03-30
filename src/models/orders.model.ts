@@ -1,18 +1,30 @@
 import { model, Schema, Document } from 'mongoose';
-import { Meal } from '@interfaces/meals.interface';
+import { Order } from '@interfaces/orders.interface';
 
-const MealSchema: Schema = new Schema(
+const OrderSchema: Schema = new Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    description: {
+    email: {
       type: String,
       required: true,
     },
-    price: {
+    address: {
+      type: String,
+      required: true,
+    },
+    postal: {
       type: Number,
+      required: true,
+    },
+    totalAmount: {
+      type: Number,
+      required: true,
+    },
+    items: {
+      type: [{}],
       required: true,
     },
   },
@@ -27,4 +39,4 @@ const MealSchema: Schema = new Schema(
   },
 );
 
-export const MealModel = model<Meal & Document>('Meal', MealSchema);
+export const OrderModel = model<Order & Document>('Order', OrderSchema);

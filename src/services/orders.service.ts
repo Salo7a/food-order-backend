@@ -1,40 +1,39 @@
-import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { HttpException } from '@exceptions/httpException';
-import { Meal } from '@interfaces/meals.interface';
-import { MealModel } from '@models/meals.model';
+import { Order } from '@interfaces/orders.interface';
+import { OrderModel } from '@models/orders.model';
 
 @Service()
-export class MealService {
-  public async findAllMeal(): Promise<Meal[]> {
-    const meals: Meal[] = await MealModel.find();
-    return meals;
+export class OrderService {
+  public async findAllOrders(): Promise<Order[]> {
+    const orders: Order[] = await OrderModel.find();
+    return orders;
   }
 
-  public async findMealById(mealId: string): Promise<Meal> {
-    const findMeal: Meal = await MealModel.findOne({ _id: mealId });
-    if (!findMeal) throw new HttpException(409, "Meal doesn't exist");
+  public async findOrderById(orderId: string): Promise<Order> {
+    const findOrder: Order = await OrderModel.findOne({ _id: orderId });
+    if (!findOrder) throw new HttpException(409, "Order doesn't exist");
 
-    return findMeal;
+    return findOrder;
   }
 
-  public async createMeal(mealData: Meal): Promise<Meal> {
-    const createMealData: Meal = await MealModel.create({ ...mealData });
+  public async createOrder(orderData: Order): Promise<Order> {
+    const createOrderData: Order = await OrderModel.create({ ...orderData });
 
-    return createMealData;
+    return createOrderData;
   }
 
-  public async updateMeal(mealId: string, mealData: Meal): Promise<Meal> {
-    const updateMealById: Meal = await MealModel.findByIdAndUpdate(mealId, { mealData });
-    if (!updateMealById) throw new HttpException(409, "Meal doesn't exist");
+  public async updateOrder(orderId: string, orderData: Order): Promise<Order> {
+    const updateOrderById: Order = await OrderModel.findByIdAndUpdate(orderId, { orderData });
+    if (!updateOrderById) throw new HttpException(409, "Order doesn't exist");
 
-    return updateMealById;
+    return updateOrderById;
   }
 
-  public async deleteMeal(mealId: string): Promise<Meal> {
-    const deleteMealById: Meal = await MealModel.findByIdAndDelete(mealId);
-    if (!deleteMealById) throw new HttpException(409, "Meal doesn't exist");
+  public async deleteOrder(orderId: string): Promise<Order> {
+    const deleteOrderById: Order = await OrderModel.findByIdAndDelete(orderId);
+    if (!deleteOrderById) throw new HttpException(409, "Order doesn't exist");
 
-    return deleteMealById;
+    return deleteOrderById;
   }
 }
